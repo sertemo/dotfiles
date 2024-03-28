@@ -1,24 +1,33 @@
 # .dotfiles
 ## Para instalar los archivos de configuración:
-1. Descargar de GitHub la carpeta **.dotfiles**
+1. Clona el repositorio de GitHub a la carpeta **.dotfiles**
 
-2. Hacer ejecutable desde **consola bash** el script **install.sh**:
+```sh
+git clone https://github.com/sertemo/dotfiles.git ~/.dotfiles
+
+```
+2. Navega hasta la carpeta .dotfiles
+```sh
+cd ~/.dotfiles
+```
+
+3. Hacer ejecutable desde **consola bash** el script **install.sh**:
 
 ```sh 
 chmod +x $HOME/.dotfiles/install.sh
 ```
 
-3. Ejecutar el script desde terminal bash
+4. Ejecutar el script desde terminal bash
 
 ```sh
 $HOME/.dotfiles/install.sh
 ```
 
 - Esta ejecución creará enlaces simbólicos en las carpetas correspondientes de:
- .bashrc -> ~/
- .gitconfig -> ~/
- settings.json (vscode): -> ~/AppData/Roaming/Code/User/
- snippets/ (vscode): -> ~/AppData/Roaming/Code/User/
+ - .bashrc -> ~/
+ - .gitconfig -> ~/
+ - settings.json (vscode): -> ~/AppData/Roaming/Code/User/
+ - snippets/ (vscode): -> ~/AppData/Roaming/Code/User/
 
 - Instalará las extensiones de **extensions.list**
 
