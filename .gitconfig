@@ -1,0 +1,14 @@
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[credential "https://huggingface.co"]
+	provider = generic
+[user]
+	email = tejedor.moreno@gmail.com
+	name = sertemo
+[init]
+	defaultBranch = main
+[alias]
+	tree = log --graph --decorate --all --oneline # puesto en curso de Mouredev
