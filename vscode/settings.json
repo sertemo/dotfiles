@@ -1,0 +1,51 @@
+{
+    "python.defaultInterpreterPath": "C:\\Users\\Usuario\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "editor.fontFamily": " \"Fira Code\", 'Fira Code Light'",
+    "telemetry.telemetryLevel": "off",
+    "terminal.integrated.fontFamily": "monospace",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "One Dark Pro Flat",
+    "workbench.sideBar.location": "right",
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "mypy.targets": [
+        ".",
+        "00_FastAPI_data_science"
+    ],
+    "editor.guides.bracketPairs": "active",
+    "notebook.lineNumbers": "on",
+    "editor.minimap.enabled": false,
+    "editor.acceptSuggestionOnEnter": "off",
+    "git.autofetch": true,
+    "git.suggestSmartCommit": false,
+    "files.exclude": {
+        "**/.git": false
+    },
+    "workbench.startupEditor": "none",
+    "autoDocstring.docstringFormat": "numpy",
+    "notebook.output.textLineLimit": 60,
+    "editor.stickyScroll.enabled": true,
+    "editor.fontLigatures": true,
+    "window.zoomLevel": 2,
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "grammarly.files.include": [
+        "**/readme.md",
+        "**/README.md",
+        "**/*.txt",
+        "**/*.md"
+    ],
+    "grammarly.selectors": [],
+    "languageTool.language": "es",
+    "editor.rulers": [
+    80, 120
+    ],
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "dart.flutterSdkPath": "C:\\dev\\flutter",
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    } // instalación de Flutter
+}
