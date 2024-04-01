@@ -39,7 +39,7 @@
     "grammarly.selectors": [],
     "languageTool.language": "es",
     "editor.rulers": [
-    80, 120
+    120
     ],
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
