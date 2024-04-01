@@ -1,5 +1,5 @@
 # .dotfiles
-## Para instalar los archivos de configuración:
+## Para instalar los archivos de configuración en un nuevo ordenador
 1. Clona el repositorio de GitHub a la carpeta **.dotfiles**
 
 ```sh
@@ -53,6 +53,13 @@ Esto reemplazará el archivo original por el enlace simbólico
 - -s: Crea un enlace simbólico.
 - -f: Fuerza la creación del enlace simbólico y elimina el archivo de destino si ya existe.
 - -v: Verboso, muestra detalles de lo que el comando está haciendo.
+
+## Para añadir la lista de extensiones de VSCode
+
+```sh
+code --list-extensions > ~/dotfiles/vscode/extensions.list
+```
+Esto crea un archivo extensions.list en la carpeta .dotfiles/vscode
 
 ---
 ## .create.sh y .check.sh
