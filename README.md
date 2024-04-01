@@ -55,39 +55,44 @@ Esto reemplazará el archivo original por el enlace simbólico
 - -v: Verboso, muestra detalles de lo que el comando está haciendo.
 
 ---
+## .create.sh y .check.sh
 
-01/04/2024 Se han añadido los scripts:
-- check.sh
-- create.sh
+El 01/04/2024 se han añadido los scripts:
+- .check.sh
+- .create.sh
 
-Estos archivos son scripts para automatizar la creación de un proyecto con poetry y la ejecución de chequeos. Requiere tener instalados **poetry** y **git** en el sistema.
+Estos archivos son scripts para automatizar la creación de un proyecto con poetry y la ejecución de chequeos de código.
 
-El archivo **create.sh** crea un proyecto con poetry
+Requiere tener instalados **poetry** y **git** en el sistema.
+
+El archivo **.create.sh** crea un proyecto con poetry (*poetry new*)
 
 Se ejecuta:
 ```sh
-sh .create.sh MiGranProyecto
+sh .create.sh <nombre_del_proyecto>
 ```
 
 Se realizarán las siguientes tareas:
 1. Crea un nuevo proyecto con poetry y fichero 'src'
 2. Copia el archivo **check.sh** dentro de la carpeta del proyecto y lo hace ejecutable
-3. Añade dependencias de desarrollo con poetry: black, mypy y flake8
-4. Crea archivo de licencia con Apache 2.0
-5. Escribe en README una estructura de partida
-6. Crea archivo setup.cfg con la configuración de flake8
-7. Añade configuración de mypy a pyproject.toml
-8. Inicializa git
-9. Crea un .gitignore y añade algunos folders
-10. Crea el **requirements.txt** vacío
-11. Crea el **requirements_dev.txt** con las dependencias de desarrollo
+3. Añade dependencias de desarrollo con poetry: **black**, **mypy**, **pytest**, **pytest-cov** y **flake8**
+4. Crea archivo de **licencia** con Apache 2.0
+5. Escribe en **README** una estructura de partida con encabezados
+6. Crea el archivo **conftest.py** en tests/ y define una fixture tipo
+7. Crea archivo **setup.cfg** con la configuración de flake8
+8. Añade configuración de **mypy** y **pytest-cov** a pyproject.toml
+9. Inicializa **git**
+10. Crea un **.gitignore** y añade algunos folders como build y dist
+11. Crea el **requirements.txt** vacío
+12. Crea el **requirements_dev.txt** con las dependencias de desarrollo
 
 El archivo **check.sh** realiza lo siguiente:
-1. Ejecuta black con poetry run
-2. Ejecuta mypy con poetry run
-3. Ejecuta flake8 con poetry run
+1. Ejecuta **black** con poetry run
+2. Ejecuta **mypy** con poetry run
+3. Ejecuta **flake8** con poetry run
+4. Ejecuta **pytest-cov** con poetry run
 
-El archivo **check.sh** busca dentro de la carpeta **src**. Para ejecutar los chequeos:
+El archivo **.check.sh** busca dentro de la carpeta **src**. Para ejecutar los chequeos:
 
 ```sh
 ./.check.sh

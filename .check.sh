@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Ejecuta verificaciones
+# Black, mypy, flake8 y pytest
+# Estos paquetes deben estar instalados dentro de poetry en el proyecto correspondiente
 # Asume que los scripts del proyecto están dentro de carpeta 'src'
 
 # Define colores
@@ -33,6 +35,10 @@ if poetry run flake8 "$project_path"; then
 else
     echo -e "${RED}Flake8 encontró problemas.${NC}"
 fi
+
+echo -e "${YELLOW}Ejecutando Pytest...${NC}"
+poetry run pytest
+echo -e "${GREEN}Pytest finalizado correctamente.${NC}"
 
 # ejecutar chmod +x tests.sh para hacer el archivo ejecutable: ./tests.sh
 # esto lo hace automáticamente el archivo create.sh

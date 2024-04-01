@@ -2,19 +2,20 @@
 
 ## README ##
 # Script para crear e inicializar un proyecto con poetry dentro de una carpeta src (source)
-# Instala las depedencias black, mypy y flake8
+# Instala las depedencias black, mypy y flake8 y pytest
 # Crea archivo de configuración setup.cfg de flake8
-# Añade a pyproject.toml la configuración de mypy
+# Añade a pyproject.toml la configuración de mypy y de pytest
 # Crea archivo LICENSE con Apache 2.0
 # Escribe una estructura del archivo README
-# Copia el script check.sh dentro del proyecto y lo hace ejecutable
-# Es importante que ambos archivos create.sh y check.sh estén originariamente en el mismo directorio
-# El archivo check.sh ejecuta las verificaciones de black, mypy y flake8
-# El archivo check.sh asume que el proyecto está dentro de la carpeta src
+# Copia el script .check.sh dentro del proyecto y lo hace ejecutable
+# Es importante que ambos archivos .create.sh y check.sh estén originariamente en el mismo directorio
+# El archivo .check.sh ejecuta las verificaciones de black, mypy, flake8 y pytest
+# El archivo .check.sh asume que el proyecto está dentro de la carpeta src
 # Es necesario tener poetry y git y git instalados en el sistema
 
 # Colores para los mensajes
 GREEN='\033[0;32m'
+RED='\033[0;31m'
 NC='\033[0m' # Sin color
 
 # Obtiene la ruta al directorio del script
@@ -23,7 +24,7 @@ echo "Directorio raiz: $script_dir"
 
 # Verificar si se pasó un nombre de proyecto como argumento
 if [ "$#" -ne 1 ]; then
-   echo "Error: Debes proporcionar el nombre del proyecto. Ejemplo: ./create.sh MiProyecto"
+   echo -e "${RED}Error: Debes proporcionar el nombre del proyecto. Ejemplo: $ sh .create.sh MiProyecto${NC}"
    exit 1
 fi
 
@@ -33,12 +34,12 @@ project_name=$1
 echo "Creando proyecto: $project_name"
 poetry new --src "$project_name"
 
-# Copiar el script check.sh al directorio del proyecto
+# Copiar el script .check.sh al directorio del proyecto
 if [ ! -f "${script_dir}/.check.sh" ]; then
    echo "El archivo .check.sh no existe en la ubicación especificada. El archivo .check.sh y .create.sh debe estar en la misma ruta"
    exit 1
 fi
-echo "Copiando script check.sh..."
+echo "Copiando script .check.sh..."
 cp "${script_dir}/.check.sh" ./${project_name}
 chmod +x .check.sh
 
@@ -47,8 +48,8 @@ echo "Creando proyecto: $project_name"
 cd "$project_name" || exit
 
 # Añadir dependencias de desarrollo
-echo "Añadiendo dependencias de desarrollo: mypy, flake8 y black"
-poetry add -G dev black flake8 mypy
+echo "Añadiendo dependencias de desarrollo: mypy, flake8, pytest, pytest-cov y black"
+poetry add -G dev black flake8 mypy pytest pytest-cov
 
 # Crear archivo LICENSE Apache 2.0
 echo "Creando archivo LICENSE..."
@@ -308,11 +309,36 @@ exclude = .git,__pycache__,build,dist,tests
 ignore = I101,D100,D101,D102,D103,D104,D105,D107,D401,E203,I900,N802,N806,N812,W503,S311,S605,S607
 EOF
 
+# Añadimos a tests un archivo para las fixtures
+echo "Creando archivo conftest.py para fixtures"
+cat > tests/conftest.py << EOF
+# Copyright 2024 Sergio Tejedor Moreno
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import pytest
+
+
+@pytest.fixture(scope="session")
+def mi_fixture():
+   raise NotImplementedError()
+EOF
+
 # Añadir la configuración de MyPy a pyproject.toml
 echo "Configurando MyPy en pyproject.toml..."
-# Añadir la configuración de MyPy a pyproject.toml
-echo "Configurando MyPy en pyproject.toml..."
+
 echo -e "\n[tool.mypy]" >> pyproject.toml
+echo -e "mypy_path = \"src\"" >> pyproject.toml #! Ojo está puesto src
 echo "check_untyped_defs = true" >> pyproject.toml
 echo "disallow_any_generics = true" >> pyproject.toml
 echo "ignore_missing_imports = true" >> pyproject.toml
@@ -325,11 +351,19 @@ echo "warn_unreachable = true" >> pyproject.toml
 echo "warn_unused_configs = true" >> pyproject.toml
 echo "no_implicit_reexport = true" >> pyproject.toml
 
+# Añadir la configuración de pytest
+echo "Configurando Pytest en pyproject.toml..."
+echo -e "\n[tool.pytest.ini_options]" >> pyproject.toml
+cat >> pyproject.toml << EOF
+addopts = "--cov=$project_name"
+testpaths = [
+   "tests",
+]
+EOF
+
 # Inicializar Git
 echo "Inicializando repositorio Git..."
 git init
-git add .
-git commit -m "Proyecto inicial con configuración de Poetry, Black, Flake8, MyPy y licencia Apache."
 
 # Crea un gitignore
 echo "/build" >> .gitignore
@@ -342,9 +376,13 @@ echo "Creando archivos de requisitos..."
 poetry export -f requirements.txt --output requirements.txt --without-hashes
 poetry export --with dev -f requirements.txt --output requirements_dev.txt --without-hashes
 
+# Realizamos el primer commit
+echo "Realizamos el primer commit..."
+git add .
+git commit -m "Proyecto inicial con configuración de Poetry, Black, Pytest, Flake8, MyPy y licencia Apache."
+
 echo -e "${GREEN}Proyecto $project_name creado y configurado con éxito.${NC}"
 
-cd "$project_name"
 # Activar el entorno virtual
 # echo "Activando el entorno virtual..."
 # poetry shell
