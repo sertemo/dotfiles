@@ -66,7 +66,7 @@ El archivo **create.sh** crea un proyecto con poetry
 
 Se ejecuta:
 ```sh
-sh create.sh MiGranProyecto
+sh .create.sh MiGranProyecto
 ```
 
 Se realizarán las siguientes tareas:
