@@ -76,6 +76,7 @@ Se realizarán las siguientes tareas:
 1. Crea un nuevo proyecto con poetry y fichero 'src'
 2. Copia el archivo **check.sh** dentro de la carpeta del proyecto y lo hace ejecutable
 3. Añade dependencias de desarrollo con poetry: **black**, **mypy**, **pytest**, **pytest-cov** y **flake8**
+3bis. Añade la librería toml para manejar la versión de pyproject.toml
 4. Crea archivo de **licencia** con Apache 2.0
 5. Escribe en **README** una estructura de partida con encabezados
 6. Crea el archivo **conftest.py** en tests/ y define una fixture tipo

@@ -50,6 +50,9 @@ cd "$project_name" || exit
 # Añadir dependencias de desarrollo
 echo "Añadiendo dependencias de desarrollo: mypy, flake8, pytest, pytest-cov y black"
 poetry add -G dev black flake8 mypy pytest pytest-cov
+# Añadimos dependencia toml (para sacar la versión de pyproject.toml si necesario)
+echo "Añadiendo dependencia toml..."
+poetry add toml
 
 # Crear archivo LICENSE Apache 2.0
 echo "Creando archivo LICENSE..."
