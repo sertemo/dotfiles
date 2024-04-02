@@ -1,7 +1,12 @@
 #!/bin/bash
 
 ## README ##
+
+# Este script requiere 2 argumentos:
+# 1. Nombre del proyecto/repositorio
+# 2. Descripción del proyecto/repositorio (breve) -> Para el repo de Github
 # Script para crear e inicializar un proyecto con poetry dentro de una carpeta src (source)
+
 # Instala las depedencias black, mypy y flake8 y pytest
 # Crea archivo de configuración setup.cfg de flake8
 # Añade a pyproject.toml la configuración de mypy y de pytest
@@ -11,7 +16,8 @@
 # Es importante que ambos archivos .create.sh y check.sh estén originariamente en el mismo directorio
 # El archivo .check.sh ejecuta las verificaciones de black, mypy, flake8 y pytest
 # El archivo .check.sh asume que el proyecto está dentro de la carpeta src
-# Es necesario tener poetry y git y git instalados en el sistema
+# Es necesario tener poetry, git y Git CLI instalados en el sistema
+# También será necesario tener la variable de entorno GH_TOKEN con el valor del token
 
 # Colores para los mensajes
 GREEN='\033[0;32m'
@@ -24,12 +30,20 @@ echo "Directorio raiz: $script_dir"
 
 # Verificar si se pasó un nombre de proyecto como argumento
 if [ "$#" -ne 1 ]; then
-   echo -e "${RED}Error: Debes proporcionar el nombre del proyecto. Ejemplo: $ sh .create.sh MiProyecto${NC}"
+   echo -e "${RED}Error: Debes proporcionar el nombre del proyecto. Ejemplo: $ sh .create.sh MiProyecto "Mi mejor proyect hasta la fecha"${NC}"
+   exit 1
+fi
+
+# Verificar si se pasó una descripción
+if [ "$#" -ne 2 ]; then
+   echo -e "${RED}Error: Debes proporcionar la descripción del proyecto. Ejemplo: $ sh .create.sh MiProyecto "Mi mejor proyect hasta la fecha"${NC}"
    exit 1
 fi
 
 project_name=$1
+project_description=$2
 python_version="^3.10"
+username="sertemo"
 
 # Crear el proyecto con Poetry
 echo "Creando proyecto: $project_name"
@@ -398,6 +412,11 @@ testpaths = [
 ]
 EOF
 
+# Creando el repositorio de GitHub
+# Para poder hacer esto hace falta tener un token y guardarlo en la variable de entorno GH_TOKEN
+echo "Creando el repositorio en Github..."
+gh repo create "$project_name" --public -d "$project_description"
+
 # Inicializar Git
 echo "Inicializando repositorio Git..."
 git init
@@ -464,6 +483,12 @@ poetry export --with dev -f requirements.txt --output requirements_dev.txt --wit
 echo "Realizamos el primer commit..."
 git add .
 git commit -m "Proyecto inicial con configuración de Poetry, Black, Pytest, Flake8, MyPy y licencia Apache."
+
+# Vinculamos remote y main
+echo "Haciendo primer push..."
+git remote add origin https://github.com/$username/$project_name.git
+git push -u origin main
+
 
 echo -e "${GREEN}Proyecto $project_name creado y configurado con éxito.${NC}"
 

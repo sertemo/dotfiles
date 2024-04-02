@@ -91,14 +91,18 @@ Se realizarán las siguientes tareas:
 9. Crea un archivo **test_example.py** en tests/ con un dummy test para que pytest no de problemas
 10. Crea archivo **setup.cfg** con la configuración de flake8
 11. Añade configuración de **mypy** y **pytest-cov** a pyproject.toml
-12. Inicializa **git**
-13. Crea un **.gitignore** y añade algunos folders como build y dist
-14. Crea la carpeta **.github/workflows** con el archivo **tests.yml** con lo siguiente:
+12. Crea un repositorio en **GitHub**. NOTA: Debes tener en la variable de entorno GH_TOKEN tu token de acceso e instalado **Github CLI**
+13. Inicializa **git**
+14. Crea un **.gitignore** y añade algunos folders como build y dist
+15. Crea la carpeta **.github/workflows** con el archivo **tests.yml** con lo siguiente:
     - 2 os: **ubuntu** y **windows**
     - 2 versiones python: **3.10** y **3.11**
     - Se lanzan los tests de mypy, black, flake8 y pytest al hacer **push** y **pull request**
-15. Crea el **requirements.txt** vacío 
-16. Crea el **requirements_dev.txt** con las dependencias de desarrollo
+16. Crea el **requirements.txt** vacío 
+17. Crea el **requirements_dev.txt** con las dependencias de desarrollo
+18. Realiza el **primer commit**
+19. Realiza el primer **push** a GitHub
+
 
 El archivo **check.sh** realiza lo siguiente:
 1. Ejecuta **black** con poetry run
