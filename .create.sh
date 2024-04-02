@@ -420,7 +420,7 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: \${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -429,10 +429,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python \${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: \${{ matrix.python-version }}
         
     - name: Install Poetry
       run: pip install poetry
@@ -441,13 +441,13 @@ jobs:
       run: poetry install
 
     - name: Run Black
-      run: poetry run black alieninvasion --check
+      run: poetry run black --check .
 
     - name: Run MyPy
-      run: poetry run mypy alieninvasion
+      run: poetry run mypy .
 
     - name: Run Flake8
-      run: poetry run flake8 alieninvasion
+      run: poetry run flake8 .
 
     - name: Run Pytest
       run: poetry run pytest
