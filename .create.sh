@@ -28,9 +28,10 @@ if [ "$#" -ne 1 ]; then
    exit 1
 fi
 
+project_name=$1
+python_version="^3.10"
 
 # Crear el proyecto con Poetry
-project_name=$1
 echo "Creando proyecto: $project_name"
 poetry new --src "$project_name"
 
@@ -46,6 +47,13 @@ chmod +x .check.sh
 # Navegar al nuevo directorio del proyecto
 echo "Creando proyecto: $project_name"
 cd "$project_name" || exit
+
+# Actualizar la versión de Python en pyproject.toml
+echo "Configurando la versión de Python a ${python_version} en pyproject.toml..."
+sed -i "s/^python = .*/python = \"${python_version}\"/" pyproject.toml
+
+echo "Instalando dependencias del proyecto..."
+poetry install
 
 # Añadir dependencias de desarrollo
 echo "Añadiendo dependencias de desarrollo: mypy, flake8, pytest, pytest-cov y black"
@@ -264,6 +272,7 @@ EOF
 # Escribimos la estructura del archivo README.md
 cat > README.md << EOF
 # $project_name v0.1.0
+![Tests](https://github.com/sertemo/$project_name/actions/workflows/tests.yml/badge.svg)
 
 ## Descripción
 
@@ -313,7 +322,7 @@ ignore = I101,D100,D101,D102,D103,D104,D105,D107,D401,E203,I900,N802,N806,N812,W
 EOF
 
 # Añadimos a tests un archivo para las fixtures
-echo "Creando archivo conftest.py para fixtures"
+echo "Creando archivo conftest.py para fixtures..."
 cat > tests/conftest.py << EOF
 # Copyright 2024 Sergio Tejedor Moreno
 
@@ -336,6 +345,31 @@ import pytest
 def mi_fixture():
    raise NotImplementedError()
 EOF
+
+# Añadimos también un dummy test para que pase pytest
+echo "Creando archivo test_example.py..."
+cat > tests/test_example.py << EOF
+# Copyright 2024 Sergio Tejedor Moreno
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import pytest
+
+
+def test_example():
+   assert True
+EOF
+
 
 # Añadir la configuración de MyPy a pyproject.toml
 echo "Configurando MyPy en pyproject.toml..."
@@ -372,6 +406,53 @@ git init
 echo "/build" >> .gitignore
 echo "/dist" >> .gitignore
 echo "/__pycache__" >> .gitignore
+echo ".env" >> .gitignore
+
+# Crear la carpeta .github/workflows
+echo "Creando workflow de github..."
+mkdir -p .github/workflows
+cat > .github/workflows/tests.yml << EOF
+name: Tests
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.10', '3.11']
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Install Poetry
+      run: pip install poetry
+
+    - name: Install dependencies
+      run: poetry install
+
+    - name: Run Black
+      run: poetry run black alieninvasion --check
+
+    - name: Run MyPy
+      run: poetry run mypy alieninvasion
+
+    - name: Run Flake8
+      run: poetry run flake8 alieninvasion
+
+    - name: Run Pytest
+      run: poetry run pytest
+
+EOF
 
 # Crear archivos de requisitos si es necesario
 # Puedes crear un entorno virtual y exportar las dependencias

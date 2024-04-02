@@ -81,18 +81,24 @@ sh .create.sh <nombre_del_proyecto>
 
 Se realizarán las siguientes tareas:
 1. Crea un nuevo proyecto con poetry y fichero 'src'
-2. Copia el archivo **check.sh** dentro de la carpeta del proyecto y lo hace ejecutable
-3. Añade dependencias de desarrollo con poetry: **black**, **mypy**, **pytest**, **pytest-cov** y **flake8**
-3bis. Añade la librería toml para manejar la versión de pyproject.toml
-4. Crea archivo de **licencia** con Apache 2.0
-5. Escribe en **README** una estructura de partida con encabezados
-6. Crea el archivo **conftest.py** en tests/ y define una fixture tipo
-7. Crea archivo **setup.cfg** con la configuración de flake8
-8. Añade configuración de **mypy** y **pytest-cov** a pyproject.toml
-9. Inicializa **git**
-10. Crea un **.gitignore** y añade algunos folders como build y dist
-11. Crea el **requirements.txt** vacío
-12. Crea el **requirements_dev.txt** con las dependencias de desarrollo
+2. Cambia la versión de Python a ^3.10 en el archivo **pyproject.toml**
+3. Copia el archivo **check.sh** dentro de la carpeta del proyecto y lo hace ejecutable
+4. Añade dependencias de desarrollo con poetry: **black**, **mypy**, **pytest**, **pytest-cov** y **flake8**
+5. Añade la librería **toml** para manejar la versión de pyproject.toml
+6. Crea archivo de **licencia** con Apache 2.0
+7. Escribe en **README** una estructura de partida con encabezados
+8. Crea el archivo **conftest.py** en tests/ y define una fixture tipo
+9. Crea un archivo **test_example.py** en tests/ con un dummy test para que pytest no de problemas
+10. Crea archivo **setup.cfg** con la configuración de flake8
+11. Añade configuración de **mypy** y **pytest-cov** a pyproject.toml
+12. Inicializa **git**
+13. Crea un **.gitignore** y añade algunos folders como build y dist
+14. Crea la carpeta **.github/workflows** con el archivo **tests.yml** con lo siguiente:
+    - 2 os: **ubuntu** y **windows**
+    - 2 versiones python: **3.10** y **3.11**
+    - Se lanzan los tests de mypy, black, flake8 y pytest al hacer **push** y **pull request**
+15. Crea el **requirements.txt** vacío 
+16. Crea el **requirements_dev.txt** con las dependencias de desarrollo
 
 El archivo **check.sh** realiza lo siguiente:
 1. Ejecuta **black** con poetry run
