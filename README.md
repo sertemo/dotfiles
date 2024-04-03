@@ -100,8 +100,9 @@ Se realizarán las siguientes tareas:
     - Se lanzan los tests de mypy, black, flake8 y pytest al hacer **push** y **pull request**
 16. Crea el **requirements.txt** vacío 
 17. Crea el **requirements_dev.txt** con las dependencias de desarrollo
-18. Realiza el **primer commit**
-19. Realiza el primer **push** a GitHub
+18. Lanza **black** con poetry
+19. Realiza el **primer commit**
+120. Realiza el primer **push** al repo de  GitHub
 
 
 El archivo **check.sh** realiza lo siguiente:

@@ -24,27 +24,22 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # Sin color
 
+
+# Verificar si se pasaron el nombre del proyecto y la descripción como argumentos
+if [ "$#" -ne 2 ]; then
+   echo -e "${RED}Error: Debes proporcionar el nombre y la descripción del proyecto.${NC}"
+   echo -e "${RED}Ejemplo:$ sh $0 MiProyecto 'Mi mejor proyecto hasta la fecha'${NC}"
+   exit 1
+fi
+
 # Obtiene la ruta al directorio del script
 script_dir="$(dirname "$0")"
-echo "Directorio raiz: $script_dir"
-
-# Verificar si se pasó un nombre de proyecto como argumento
-if [ "$#" -ne 1 ]; then
-   echo -e "${RED}Error: Debes proporcionar el nombre del proyecto. Ejemplo: $ sh .create.sh MiProyecto "Mi mejor proyect hasta la fecha"${NC}"
-   exit 1
-fi
-
-# Verificar si se pasó una descripción
-if [ "$#" -ne 2 ]; then
-   echo -e "${RED}Error: Debes proporcionar la descripción del proyecto. Ejemplo: $ sh .create.sh MiProyecto "Mi mejor proyect hasta la fecha"${NC}"
-   exit 1
-fi
-
-project_name=$1
-project_description=$2
+project_name="$1"
+project_description="$2"
 python_version="^3.10"
-username="sertemo"
+username=sertemo
 
+echo "Directorio raiz: $script_dir"
 # Crear el proyecto con Poetry
 echo "Creando proyecto: $project_name"
 poetry new --src "$project_name"
@@ -428,6 +423,9 @@ echo "/__pycache__" >> .gitignore
 echo ".env" >> .gitignore
 
 # Crear la carpeta .github/workflows
+# Crear el workflow
+# Decido no incluir 'continue-on-error: true' en los steps
+# Para forzar visualización de errores si los hay
 echo "Creando workflow de github..."
 mkdir -p .github/workflows
 cat > .github/workflows/tests.yml << EOF
@@ -446,10 +444,10 @@ jobs:
         python-version: ['3.10', '3.11']
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     
     - name: Set up Python \${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: \${{ matrix.python-version }}
         
@@ -479,14 +477,19 @@ echo "Creando archivos de requisitos..."
 poetry export -f requirements.txt --output requirements.txt --without-hashes
 poetry export --with dev -f requirements.txt --output requirements_dev.txt --without-hashes
 
+# Lanzamos black antes de subir a github para asegurarnos de que los checks pasen en Github Actions
+poetry run black .
+
 # Realizamos el primer commit
 echo "Realizamos el primer commit..."
 git add .
 git commit -m "Proyecto inicial con configuración de Poetry, Black, Pytest, Flake8, MyPy y licencia Apache."
+git branch -M main
+
 
 # Vinculamos remote y main
 echo "Haciendo primer push..."
-git remote add origin https://github.com/$username/$project_name.git
+git remote add origin git@github.com:$username/$project_name.git
 git push -u origin main
 
 
