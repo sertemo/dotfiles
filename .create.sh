@@ -327,7 +327,7 @@ echo "Creando archivo setup.cfg..."
 cat > setup.cfg << EOF
 [flake8]
 max-line-length = 120
-exclude = .git,__pycache__,build,dist,tests
+exclude = .git,__pycache__,build,dist,.venv,.github,.env
 ignore = I101,D100,D101,D102,D103,D104,D105,D107,D401,E203,I900,N802,N806,N812,W503,S311,S605,S607
 EOF
 
@@ -372,8 +372,6 @@ cat > tests/test_example.py << EOF
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-import pytest
 
 
 def test_example():
