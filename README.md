@@ -70,21 +70,31 @@ El 01/04/2024 se han añadido los scripts:
 
 Estos archivos son scripts para automatizar la creación de un proyecto con poetry y la ejecución de chequeos de código.
 
-Requiere tener instalados **poetry** y **git** en el sistema.
+### Requisitos
+- **poetry**
+- **git** (con Bash)
+- Cuenta de **GitHub**
+- **GitHub CLI** instalado
+- Variable GH_TOKEN en el PATH con un token válido
 
-El archivo **.create.sh** crea un proyecto con poetry (*poetry new*)
+
+El archivo **.create.sh** crea un proyecto con poetry (*poetry new*).
+
+Requiere de 2 argumentos:
+1. El nombre del proyecto (**sin espacios**). Ejemplo: **miProyecto**
+2. Descripción del proyecto. Ejemplo: **"Proyecto de ejemplo para probar automatizaciones"**
 
 Se ejecuta:
 ```sh
-sh .create.sh <nombre_del_proyecto>
+$ sh .create.sh <nombre_del_proyecto> "<descripción del proyecto>"
 ```
 
 Se realizarán las siguientes tareas:
-1. Crea un nuevo proyecto con poetry y fichero 'src'
+1. Crea un nuevo proyecto con **poetry** y fichero '**src**'
 2. Cambia la versión de Python a ^3.10 en el archivo **pyproject.toml**
 3. Copia el archivo **check.sh** dentro de la carpeta del proyecto y lo hace ejecutable
 4. Añade dependencias de desarrollo con poetry: **black**, **mypy**, **pytest**, **pytest-cov** y **flake8**
-5. Añade la librería **toml** y **python-dotenv **para manejar la versión de pyproject.toml y gestionar keys
+5. Añade la librería **toml** y **python-dotenv** para manejar la versión de pyproject.toml y gestionar keys
 6. Crea archivo de **licencia** con Apache 2.0
 7. Escribe en **README** una estructura de partida con encabezados
 8. Crea el archivo **conftest.py** en tests/ y define una fixture tipo
@@ -112,8 +122,10 @@ El archivo **check.sh** realiza lo siguiente:
 3. Ejecuta **flake8** con poetry run
 4. Ejecuta **pytest-cov** con poetry run
 
-El archivo **.check.sh** busca dentro de la carpeta **src**. Para ejecutar los chequeos:
+El archivo **.check.sh** realiza las comprobaciones dentro del directorio del proyecto.
+
+Para ejecutar los chequeos:
 
 ```sh
-./.check.sh
+$ ./.check.sh
 ```
