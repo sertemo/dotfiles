@@ -57,7 +57,7 @@ chmod +x .check.sh
 echo "Creando proyecto: $project_name"
 cd "$project_name" || exit
 
-# Actualizar la versión de Python en pyproject.toml
+# Actualizar la versión de Python en pyproject.toml a ^3.10
 echo "Configurando la versión de Python a ${python_version} en pyproject.toml..."
 sed -i "s/^python = .*/python = \"${python_version}\"/" pyproject.toml
 
@@ -68,8 +68,9 @@ poetry install
 echo "Añadiendo dependencias de desarrollo: mypy, flake8, pytest, pytest-cov y black"
 poetry add -G dev black flake8 mypy pytest pytest-cov
 # Añadimos dependencia toml (para sacar la versión de pyproject.toml si necesario)
-echo "Añadiendo dependencia toml..."
-poetry add toml
+# Y también python-dotenv para gestionar secrets como api keys etc
+echo "Añadiendo dependencias: toml y python-dotenv..."
+poetry add toml python-dotenv
 
 # Crear archivo LICENSE Apache 2.0
 echo "Creando archivo LICENSE..."
@@ -406,6 +407,10 @@ testpaths = [
    "tests",
 ]
 EOF
+
+# Añadimos archivo .env
+echo "Creando archivo .env ..."
+touch .env
 
 # Creando el repositorio de GitHub
 # Para poder hacer esto hace falta tener un token y guardarlo en la variable de entorno GH_TOKEN

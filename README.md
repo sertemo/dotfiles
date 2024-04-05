@@ -84,13 +84,14 @@ Se realizarán las siguientes tareas:
 2. Cambia la versión de Python a ^3.10 en el archivo **pyproject.toml**
 3. Copia el archivo **check.sh** dentro de la carpeta del proyecto y lo hace ejecutable
 4. Añade dependencias de desarrollo con poetry: **black**, **mypy**, **pytest**, **pytest-cov** y **flake8**
-5. Añade la librería **toml** para manejar la versión de pyproject.toml
+5. Añade la librería **toml** y **python-dotenv **para manejar la versión de pyproject.toml y gestionar keys
 6. Crea archivo de **licencia** con Apache 2.0
 7. Escribe en **README** una estructura de partida con encabezados
 8. Crea el archivo **conftest.py** en tests/ y define una fixture tipo
 9. Crea un archivo **test_example.py** en tests/ con un dummy test para que pytest no de problemas
 10. Crea archivo **setup.cfg** con la configuración de flake8
 11. Añade configuración de **mypy** y **pytest-cov** a pyproject.toml
+12. Crea un archivo **.env** para gestionar secretos
 12. Crea un repositorio en **GitHub**. NOTA: Debes tener en la variable de entorno GH_TOKEN tu token de acceso e instalado **Github CLI**
 13. Inicializa **git**
 14. Crea un **.gitignore** y añade algunos folders como build y dist
