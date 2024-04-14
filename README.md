@@ -117,10 +117,10 @@ Se realizarán las siguientes tareas:
 
 
 El archivo **check.sh** realiza lo siguiente:
-1. Ejecuta **black** con poetry run
-2. Ejecuta **mypy** con poetry run
-3. Ejecuta **flake8** con poetry run
-4. Ejecuta **pytest-cov** con poetry run
+1. Ejecuta **black** con poetry run (se suprimer el **poetry run**)
+2. Ejecuta **mypy** con poetry run (se suprimer el **poetry run**)
+3. Ejecuta **flake8** con poetry run (se suprimer el **poetry run**)
+4. Ejecuta **pytest-cov** con poetry run (se suprimer el **poetry run**)
 
 El archivo **.check.sh** realiza las comprobaciones dentro del directorio del proyecto.
 
