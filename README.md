@@ -71,7 +71,7 @@ El 01/04/2024 se han añadido los scripts:
 Estos archivos son scripts para automatizar la creación de un proyecto con poetry y la ejecución de chequeos de código.
 
 ### Requisitos
-- **poetry**
+- **poetry** - IMPORTANTE - Problemas con la shell sin resolver
 - **git** (con Bash)
 - Cuenta de **GitHub**
 - **GitHub CLI** instalado

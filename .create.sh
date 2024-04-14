@@ -481,7 +481,13 @@ poetry export -f requirements.txt --output requirements.txt --without-hashes
 poetry export --with dev -f requirements.txt --output requirements_dev.txt --without-hashes
 
 # Lanzamos black antes de subir a github para asegurarnos de que los checks pasen en Github Actions
-poetry run black .
+# poetry run black .
+# Modificación porque no me va la shell de poetry
+# Hay que activar el entorno virtual primero
+#! Para esto tengo que tener el alias poetryshell="source .venv\Scripts\activate" en .bashrc
+poetryshell
+black .
+#! Si consigo hacer que funcione volveremos a poetry run black .
 
 # Realizamos el primer commit
 echo "Realizamos el primer commit..."
