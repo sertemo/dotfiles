@@ -129,3 +129,7 @@ Para ejecutar los chequeos:
 ```sh
 $ ./.check.sh
 ```
+### Actualizaciones
+- 15/04/2024
+    - Se añade instalación manual del plugin de poetry para export: **poetry-plugin-export**
+    - Se activa el entorno virtual manualmente antes de ejecutar black con **source .venv/Scripts/activate**

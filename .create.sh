@@ -64,6 +64,10 @@ sed -i "s/^python = .*/python = \"${python_version}\"/" pyproject.toml
 echo "Instalando dependencias del proyecto..."
 poetry install
 
+# Añadir poetry plugin: Export para poder sacar requirements.txt
+# https://pypi.org/project/poetry-plugin-export/
+poetry self add poetry-plugin-export
+
 # Añadir dependencias de desarrollo
 echo "Añadiendo dependencias de desarrollo: mypy, flake8, pytest, pytest-cov y black"
 poetry add -G dev black flake8 mypy pytest pytest-cov
@@ -482,10 +486,10 @@ poetry export --with dev -f requirements.txt --output requirements_dev.txt --wit
 
 # Lanzamos black antes de subir a github para asegurarnos de que los checks pasen en Github Actions
 # poetry run black .
-# Modificación porque no me va la shell de poetry
+#! Modificación porque no me va la shell de poetry
 # Hay que activar el entorno virtual primero
-#! Para esto tengo que tener el alias poetryshell="source .venv\Scripts\activate" en .bashrc
-poetryshell
+# Para esto tengo que tener el alias poetryshell="source .venv\Scripts\activate" en .bashrc
+source .venv/Scripts/activate
 black .
 #! Si consigo hacer que funcione volveremos a poetry run black .
 
