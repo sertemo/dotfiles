@@ -66,6 +66,7 @@ poetry install
 
 # Añadir poetry plugin: Export para poder sacar requirements.txt
 # https://pypi.org/project/poetry-plugin-export/
+# TODO No estoy del todo seguro de si funciona el self add correctamente
 poetry self add poetry-plugin-export
 
 # Añadir dependencias de desarrollo
