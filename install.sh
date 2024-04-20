@@ -24,6 +24,9 @@ ln -sfv "$DOTFILES_DIR/.bashrc" $HOME/.bashrc
 # Git
 ln -sfv "$DOTFILES_DIR/.gitconfig" $HOME/.gitconfig
 
+# Iniciar SshAgent
+ln -sfv "$DOTFILES_DIR/IniciarSshAgent.ps1" $HOME/IniciarSshAgent.ps1
+
 # instalar extensiones de vscode
 cat $HOME/.dotfiles/vscode/extensions.list | xargs -L 1 code --install-extension
 
