@@ -18,8 +18,9 @@ ln -sfv "$DOTFILES_DIR/vscode/snippets" "$VSCODE_DIR/snippets"
 # -f: Fuerza la creación del enlace simbólico y elimina el archivo de destino si ya existe.
 # -v: Verboso, muestra detalles de lo que el comando está haciendo.
 
-# Bash
+# Bash y bashprofile
 ln -sfv "$DOTFILES_DIR/.bashrc" $HOME/.bashrc
+ln -sfv "$DOTFILES_DIR/.bash_profile" $HOME/.bashrc_profile
 
 # Git
 ln -sfv "$DOTFILES_DIR/.gitconfig" $HOME/.gitconfig
