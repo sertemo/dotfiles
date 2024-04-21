@@ -28,9 +28,21 @@ ln -sfv "$DOTFILES_DIR/.gitconfig" $HOME/.gitconfig
 # Iniciar SshAgent
 ln -sfv "$DOTFILES_DIR/IniciarSshAgent.ps1" $HOME/IniciarSshAgent.ps1
 
-# instalar extensiones de vscode
-cat $HOME/.dotfiles/vscode/extensions.list | xargs -L 1 code --install-extension
+# Instalar extensiones de vscode
+EXTENSIONS_FILE="$HOME/.dotfiles/vscode/extensions.list"
+echo "Intentando instalar extesniones de VSCode desde $EXTENSIONS_FILE..."
+while IFS= read -r extension
+do
+    echo "Installing $extension..."
+    code --install-extension "$extension" --force
+    if [ $? -eq 0 ]; then
+        echo "Installed $extension successfully."
+    else
+        echo "Failed to install $extension."
+    fi
+done < "$EXTENSIONS_FILE"
 
+echo "All extensions have been processed."
 
 echo "Dotfiles instalados correctamente."
 
