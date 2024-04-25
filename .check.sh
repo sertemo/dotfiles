@@ -26,7 +26,7 @@ black .
 echo -e "${GREEN}Black finalizado correctamente.${NC}"
 
 echo -e "${YELLOW}Ejecutando MyPy...${NC}"
-mypy .
+mypy . --instal-types --non-interactive
 echo -e "${GREEN}MyPy finalizado correctamente.${NC}"
 
 echo -e "${YELLOW}Ejecutando Flake8...${NC}"
