@@ -133,3 +133,5 @@ $ ./.check.sh
 - 15/04/2024
     - Se añade instalación manual del plugin de poetry para export: **poetry-plugin-export**
     - Se activa el entorno virtual manualmente antes de ejecutar black con **source .venv/Scripts/activate**
+- 27/04/2024
+    - se modifica la creación de .gitignore descargandolo de la web: https://www.toptal.com/developers/gitignore/api/python,windows y creando el archivo .gitignore en el root del proyecto

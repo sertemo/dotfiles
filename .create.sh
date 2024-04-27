@@ -66,7 +66,6 @@ poetry install
 
 # Añadir poetry plugin: Export para poder sacar requirements.txt
 # https://pypi.org/project/poetry-plugin-export/
-# TODO No estoy del todo seguro de si funciona el self add correctamente
 poetry self add poetry-plugin-export
 
 # Añadir dependencias de desarrollo
@@ -420,15 +419,20 @@ touch .env
 echo "Creando el repositorio en Github..."
 gh repo create "$project_name" --public -d "$project_description"
 
+
+# Crea un gitignore
+# Lo descarga de la web haciendo una query con windows y python
+# Ojo he tenido que instalar wget con chocolatey
+# Para instalar chocolatey desde PowerShell como administrador
+# Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+# choco install wget
+wget -O .gitignore https://www.toptal.com/developers/gitignore/api/python,windows
+
+
 # Inicializar Git
 echo "Inicializando repositorio Git..."
 git init
 
-# Crea un gitignore
-echo "/build" >> .gitignore
-echo "/dist" >> .gitignore
-echo "/__pycache__" >> .gitignore
-echo ".env" >> .gitignore
 
 # Crear la carpeta .github/workflows
 # Crear el workflow
