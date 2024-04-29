@@ -495,7 +495,7 @@ poetry export --with dev -f requirements.txt --output requirements_dev.txt --wit
 # Hay que activar el entorno virtual primero
 # Para esto tengo que tener el alias poetryshell="source .venv\Scripts\activate" en .bashrc
 source .venv/Scripts/activate
-black .
+black src
 #! Si consigo hacer que funcione volveremos a poetry run black .
 
 # Realizamos el primer commit
