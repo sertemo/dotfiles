@@ -463,8 +463,10 @@ jobs:
       with:
         python-version: \${{ matrix.python-version }}
         
-    - name: Install Poetry
-      run: pip install poetry
+    - name: Upgrade pip and Install Poetry
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
 
     - name: Install dependencies
       run: poetry install --only dev
@@ -495,7 +497,7 @@ poetry export --with dev -f requirements.txt --output requirements_dev.txt --wit
 # Hay que activar el entorno virtual primero
 # Para esto tengo que tener el alias poetryshell="source .venv\Scripts\activate" en .bashrc
 source .venv/Scripts/activate
-black src
+black .
 #! Si consigo hacer que funcione volveremos a poetry run black .
 
 # Realizamos el primer commit
