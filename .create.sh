@@ -467,7 +467,7 @@ jobs:
       run: pip install poetry
 
     - name: Install dependencies
-      run: poetry install
+      run: poetry install --only dev
 
     - name: Run Black
       run: poetry run black --check .
