@@ -134,4 +134,7 @@ $ ./.check.sh
     - Se añade instalación manual del plugin de poetry para export: **poetry-plugin-export**
     - Se activa el entorno virtual manualmente antes de ejecutar black con **source .venv/Scripts/activate**
 - 27/04/2024
-    - se modifica la creación de .gitignore descargandolo de la web: https://www.toptal.com/developers/gitignore/api/python,windows y creando el archivo .gitignore en el root del proyecto
+    - Se modifica la creación de .gitignore descargandolo de la web: https://www.toptal.com/developers/gitignore/api/python,windows y creando el archivo .gitignore en el root del proyecto
+- 01/05/2024
+    - Se añade un archivo **update_readme.py** que se añade al workflow de Github Actions para actualizar la segunda línea del README (que coincide con la versión). Extrae la versión del **pyproject.toml**
+    - Se añade dos nuevas insignias al README que corresponden con la licencia y el Dependabot de Github para revisar integridad de dependencias. Habría que activar el dependabot en el propio repositorio del proyecto.

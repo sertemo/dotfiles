@@ -285,8 +285,12 @@ EOF
 
 # Escribimos la estructura del archivo README.md
 cat > README.md << EOF
-# $project_name v0.1.0
+# $project_name
+v0.1.0
+
 ![Tests](https://github.com/sertemo/$project_name/actions/workflows/tests.yml/badge.svg)
+![Dependabot](https://img.shields.io/badge/dependabot-enabled-blue.svg?logo=dependabot)
+![GitHub](https://img.shields.io/github/license/sertemo/$project_name)
 
 ## Descripción
 
@@ -324,6 +328,36 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+EOF
+
+# Creamos archivo update_readme.py para cambiar primera linea
+# del README y poner automaticamente la versión y el nombre del proyecto
+echo "Creando archivo update_readme.py..."
+cat > update_readme.py << EOF
+"""Actualiza en el README la versión"""
+
+import toml
+
+
+def update_readme():
+    # Leer la configuración del proyecto
+    with open('pyproject.toml', 'r') as file:
+        data = toml.load(file)
+        project_version = data['tool']['poetry']['version']
+
+    # Leer el contenido actual de README.md y actualizar
+    with open('README.md', 'r') as file:
+        readme_contents = file.readlines()
+
+    # La versión está en la segunda fila
+    readme_contents[1] = f"### Version: {project_version}\n"
+
+    # Escribir el contenido actualizado de nuevo a README.md
+    with open('README.md', 'w') as file:
+        file.writelines(readme_contents)
+
+if __name__ == "__main__":
+    update_readme()
 EOF
 
 # Crear archivo setup.cfg para Flake8
@@ -444,8 +478,10 @@ cat > .github/workflows/tests.yml << EOF
 name: Tests
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   test:
@@ -470,6 +506,10 @@ jobs:
 
     - name: Install dependencies
       run: poetry install --only dev
+
+    - name: Update version in README
+      run: python update_readme.py
+      if: github.ref == 'refs/heads/main'
 
     - name: Run Black
       run: poetry run black --check .
