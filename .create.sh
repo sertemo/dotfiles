@@ -70,7 +70,7 @@ poetry self add poetry-plugin-export
 
 # Añadir dependencias de desarrollo
 echo "Añadiendo dependencias de desarrollo: mypy, flake8, pytest, pytest-cov y black"
-poetry add -G dev black flake8 mypy pytest pytest-cov
+poetry add -G dev black flake8 mypy pytest pytest-cov toml
 # Añadimos dependencia toml (para sacar la versión de pyproject.toml si necesario)
 # Y también python-dotenv para gestionar secrets como api keys etc
 echo "Añadiendo dependencias: toml y python-dotenv..."
