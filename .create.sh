@@ -350,7 +350,7 @@ def update_readme():
         readme_contents = file.readlines()
 
     # La versión está en la segunda fila
-    readme_contents[1] = f"### Version: {project_version}\n"
+    readme_contents[1] = f"## {project_version}\n"
 
     # Escribir el contenido actualizado de nuevo a README.md
     with open('README.md', 'w') as file:
@@ -508,7 +508,7 @@ jobs:
       run: poetry install --only dev
 
     - name: Update version in README
-      run: python update_readme.py
+      run: poetry run python update_readme.py
       if: github.ref == 'refs/heads/main'
 
     - name: Run Black
