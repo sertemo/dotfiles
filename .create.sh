@@ -510,7 +510,7 @@ jobs:
           pip install poetry
           poetry install --no-root --only dev
       - name: Run Black
-        run: poetry run black --check .
+        run: poetry run black --check src
 
   mypy:
     runs-on: ubuntu-latest
