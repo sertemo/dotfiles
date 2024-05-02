@@ -328,6 +328,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
 EOF
 
 # Creamos archivo update_readme.py para cambiar primera linea
@@ -442,10 +443,11 @@ echo "warn_unused_configs = true" >> pyproject.toml
 echo "no_implicit_reexport = true" >> pyproject.toml
 
 # Añadir la configuración de pytest
+# Importante, el project_name se agrega en minúsculas para evitar errores
 echo "Configurando Pytest en pyproject.toml..."
 echo -e "\n[tool.pytest.ini_options]" >> pyproject.toml
 cat >> pyproject.toml << EOF
-addopts = "--cov=$project_name"
+addopts = "--cov=${project_name,,}"
 testpaths = [
    "tests",
 ]

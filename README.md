@@ -109,6 +109,7 @@ Se realizarán las siguientes tareas:
     - 2 os: **ubuntu** y **windows**
     - 2 versiones python: **3.10** y **3.11**
     - Se lanzan los tests de mypy, black, flake8 y pytest al hacer **push** y **pull request**
+15. Crea el workflow **UpdateReadme** para actualizar la versión del proyecto en el archivo README cuando se detecte que ha cambiado el **pyproject.toml**  
 16. Crea el **requirements.txt** vacío 
 17. Crea el **requirements_dev.txt** con las dependencias de desarrollo
 18. Lanza **black** con poetry
@@ -141,3 +142,5 @@ $ ./.check.sh
     - Añadido toml a dependencias de dev para que no falle en github actions
 - 02/05/2024
     - Añadido un nuevo workflow **UpdateReadme** que escribe la version en el README solo cuando detecta cambios en el pyproject.toml.
+    - Corregido en la configuración de **pytest-cov**, escrito el proyecto en minúsculas con:
+     **${project_name,,}**
