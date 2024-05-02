@@ -139,3 +139,5 @@ $ ./.check.sh
     - Se añade un archivo **update_readme.py** que se añade al workflow de Github Actions para actualizar la segunda línea del README (que coincide con la versión). Extrae la versión del **pyproject.toml**
     - Se añade dos nuevas insignias al README que corresponden con la licencia y el Dependabot de Github para revisar integridad de dependencias. Habría que activar el dependabot en el propio repositorio del proyecto.
     - Añadido toml a dependencias de dev para que no falle en github actions
+- 02/05/2024
+    - Añadido un nuevo workflow **UpdateReadme** que escribe la version en el README solo cuando detecta cambios en el pyproject.toml.

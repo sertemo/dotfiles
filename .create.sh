@@ -286,7 +286,7 @@ EOF
 # Escribimos la estructura del archivo README.md
 cat > README.md << EOF
 # $project_name
-v0.1.0
+### v0.1.0
 
 ![Tests](https://github.com/sertemo/$project_name/actions/workflows/tests.yml/badge.svg)
 ![Dependabot](https://img.shields.io/badge/dependabot-enabled-blue.svg?logo=dependabot)
@@ -341,23 +341,30 @@ import toml
 
 def update_readme():
     # Leer la configuración del proyecto
-    with open('pyproject.toml', 'r') as file:
+    with open("pyproject.toml", "r") as file:
         data = toml.load(file)
-        project_version = data['tool']['poetry']['version']
+        current_version = data["tool"]["poetry"]["version"]
 
-    # Leer el contenido actual de README.md y actualizar
-    with open('README.md', 'r') as file:
+    # Leer el contenido actual de README.md y actualizar si es necesario
+    with open("README.md", "r") as file:
         readme_contents = file.readlines()
 
-    # La versión está en la segunda fila
-    readme_contents[1] = f"## {project_version}\n"
+    new_readme_content = f"### v{current_version}\n"
 
-    # Escribir el contenido actualizado de nuevo a README.md
-    with open('README.md', 'w') as file:
-        file.writelines(readme_contents)
+    if readme_contents[1] != new_readme_content:
+        # La versión está en la segunda fila
+        readme_contents[1] = new_readme_content
+        # Escribir el contenido actualizado de nuevo a README.md
+        with open("README.md", "w") as file:
+            file.writelines(readme_contents)
+        print("README updated")
+    else:
+        print("No update needed")
+
 
 if __name__ == "__main__":
     update_readme()
+
 EOF
 
 # Crear archivo setup.cfg para Flake8
@@ -472,7 +479,7 @@ git init
 # Crear el workflow
 # Decido no incluir 'continue-on-error: true' en los steps
 # Para forzar visualización de errores si los hay
-echo "Creando workflow de github..."
+echo "Creando workflow 'tests' de github..."
 mkdir -p .github/workflows
 cat > .github/workflows/tests.yml << EOF
 name: Tests
@@ -484,44 +491,122 @@ on:
   pull_request:
 
 jobs:
-  test:
-    runs-on: \${{ matrix.os }}
+  black:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
         python-version: ['3.10', '3.11']
-
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python \${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: \${{ matrix.python-version }}
-        
-    - name: Upgrade pip and Install Poetry
-      run: |
-        python -m pip install --upgrade pip
-        pip install poetry
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-root --only dev
+      - name: Run Black
+        run: poetry run black --check .
 
-    - name: Install dependencies
-      run: poetry install --only dev
+  mypy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.10', '3.11']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-root --only dev
+      - name: Run MyPy
+        run: poetry run mypy src --install-types --non-interactive
 
-    - name: Update version in README
-      run: poetry run python update_readme.py
-      if: github.ref == 'refs/heads/main'
+  flake8:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.10', '3.11']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-root --only dev
+      - name: Run Flake8
+        run: poetry run flake8 src
 
-    - name: Run Black
-      run: poetry run black --check .
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.10', '3.11']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-root --only dev
+      - name: Run Pytest
+        run: poetry run pytest
 
-    - name: Run MyPy
-      run: poetry run mypy .
+EOF
 
-    - name: Run Flake8
-      run: poetry run flake8 .
+# Creamos otro workflow para actualizar en el README la versión automáticamente
+# El README solo se actualiza si hay un cambio en pyproject.toml
+#! Ojo hay que dar permisos de escritura en la parte de Actions del repo
+echo "Creando workflow 'UpdateReadme de github..."
+cat > .github/workflows/UpdateReadme.yml << EOF
+name: Update README on Version Change
 
-    - name: Run Pytest
-      run: poetry run pytest
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pyproject.toml'  # Solo cuando haya cambias aqui
+
+jobs:
+  update_version:
+    runs-on: ubuntu-latest  # Especifica en qué ambiente se ejecuta el job.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true  # Asegúrate de que las credenciales persistan para el push.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-root --only dev
+      - name: Update version in README
+        run: poetry run python update_readme.py
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git commit -m "Update README version" || echo "No changes to commit"
+          git push
 
 EOF
 
