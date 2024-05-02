@@ -451,6 +451,7 @@ addopts = "--cov=${project_name,,}"
 testpaths = [
    "tests",
 ]
+pythonpath = ["src"]
 EOF
 
 # Añadimos archivo .env

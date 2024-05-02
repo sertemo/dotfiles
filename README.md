@@ -144,3 +144,4 @@ $ ./.check.sh
     - Añadido un nuevo workflow **UpdateReadme** que escribe la version en el README solo cuando detecta cambios en el pyproject.toml.
     - Corregido en la configuración de **pytest-cov**, escrito el proyecto en minúsculas con:
      **${project_name,,}**
+     - Agregada linea en pyproject.toml en la parte de pytest : pypthonpath = ["src"] para evitar problema encontrando los módulos
