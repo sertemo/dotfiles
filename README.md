@@ -104,17 +104,18 @@ Se realizarán las siguientes tareas:
 12. Crea un archivo **.env** para gestionar secretos
 12. Crea un repositorio en **GitHub**. NOTA: Debes tener en la variable de entorno GH_TOKEN tu token de acceso e instalado **Github CLI**
 13. Inicializa **git**
-14. Crea un **.gitignore** y añade algunos folders como build y dist
-15. Crea la carpeta **.github/workflows** con el archivo **tests.yml** con lo siguiente:
+14. Crea un **.gitattributes** para quitar finales de línea de Windows (incompatibles con Unix)
+15. Crea un **.gitignore** y añade algunos folders como build y dist
+16. Crea la carpeta **.github/workflows** con el archivo **tests.yml** con lo siguiente:
     - 2 os: **ubuntu** y **windows**
     - 2 versiones python: **3.10** y **3.11**
     - Se lanzan los tests de mypy, black, flake8 y pytest al hacer **push** y **pull request**
-15. Crea el workflow **UpdateReadme** para actualizar la versión del proyecto en el archivo README cuando se detecte que ha cambiado el **pyproject.toml**  
-16. Crea el **requirements.txt** vacío 
-17. Crea el **requirements_dev.txt** con las dependencias de desarrollo
-18. Lanza **black** con poetry
-19. Realiza el **primer commit**
-120. Realiza el primer **push** al repo de  GitHub
+17. Crea el workflow **UpdateReadme** para actualizar la versión del proyecto en el archivo README cuando se detecte que ha cambiado el **pyproject.toml**  
+18. Crea el **requirements.txt** vacío 
+19. Crea el **requirements_dev.txt** con las dependencias de desarrollo
+20. Lanza **black** con poetry
+21. Realiza el **primer commit**
+22. Realiza el primer **push** al repo de  GitHub
 
 
 El archivo **check.sh** realiza lo siguiente:

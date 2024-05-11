@@ -472,6 +472,14 @@ gh repo create "$project_name" --public -d "$project_description"
 # choco install wget
 wget -O .gitignore https://www.toptal.com/developers/gitignore/api/python,windows
 
+# Creamos un .gitattribute para quitar automáticamente
+# los finales de linea que crea Windows por defecto
+# esto es importante para ejecutar proyectos en Docker (entorno Unix)
+echo "Creando el .gitattributes"
+cat >> .gitattributes << EOF
+* text=auto eol=lf
+EOF
+
 
 # Inicializar Git
 echo "Inicializando repositorio Git..."

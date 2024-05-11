@@ -12,3 +12,7 @@
 	defaultBranch = main
 [alias]
 	tree = log --graph --decorate --all --oneline # puesto en curso de Mouredev
+[http]
+	postBuffer = 260286400
+[core]
+	autocrlf = input
