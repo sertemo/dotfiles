@@ -96,7 +96,7 @@ Se realizarán las siguientes tareas:
 4. Añade dependencias de desarrollo con poetry: **black**, **mypy**, **pytest**, **pytest-cov** y **flake8**
 5. Añade la librería **toml** y **python-dotenv** para manejar la versión de pyproject.toml y gestionar keys
 6. Crea archivo de **licencia** con Apache 2.0
-7. Escribe en **README** una estructura de partida con encabezados
+7. Escribe en **README** una estructura de partida con encabezados y badges.
 8. Crea el archivo **conftest.py** en tests/ y define una fixture tipo
 9. Crea un archivo **test_example.py** en tests/ con un dummy test para que pytest no de problemas
 10. Crea archivo **setup.cfg** con la configuración de flake8

@@ -309,8 +309,13 @@ cat > README.md << EOF
 ### Proceso de Pull Request
 
 ## Tests
+![Pytest](https://img.shields.io/badge/testing-pytest-blue.svg)
+![Black](https://img.shields.io/badge/code%20style-black-blue.svg)
+![Flake8](https://img.shields.io/badge/linter-flake8-blue.svg)
+![MyPy](https://img.shields.io/badge/type%20checker-mypy-blue.svg)
 
-## Construido Con
+## Tecnologías
+![Poetry](https://img.shields.io/badge/Poetry-60A5FA?style=for-the-badge&logo=python&logoColor=white)
 
 ## Contribuyentes
 
