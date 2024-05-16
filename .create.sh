@@ -631,9 +631,9 @@ EOF
 
 # Crear archivos de requisitos si es necesario
 # Puedes crear un entorno virtual y exportar las dependencias
-echo "Creando archivos de requisitos..."
-poetry export -f requirements.txt --output requirements.txt --without-hashes
-poetry export --with dev -f requirements.txt --output requirements_dev.txt --without-hashes
+# echo "Creando archivos de requisitos..."
+# poetry export -f requirements.txt --output requirements.txt --without-hashes
+# poetry export --with dev -f requirements.txt --output requirements_dev.txt --without-hashes
 
 # Lanzamos black antes de subir a github para asegurarnos de que los checks pasen en Github Actions
 # poetry run black .
