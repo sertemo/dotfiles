@@ -315,6 +315,7 @@ cat > README.md << EOF
 ![MyPy](https://img.shields.io/badge/type%20checker-mypy-blue.svg)
 
 ## Tecnologías
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Poetry](https://img.shields.io/badge/Poetry-60A5FA?style=for-the-badge&logo=python&logoColor=white)
 
 ## Contribuyentes

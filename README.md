@@ -149,3 +149,4 @@ $ ./.check.sh
 - 16/05/2024
     - Añadido a `create.sh` en **.gitattributes** seguimiento por defecto de archivo **.pkl** y **.pt**
     - Corregida la creación del `tests.yml` escapando caracteres y envolviendo 'EOF' en el archivo bash.
+    - Anulo la creación de los archivos requirements.txt y requirements_dev.txt ya que no son realmente necesarios al estar en pyproejct.toml.
