@@ -66,7 +66,7 @@ poetry install
 
 # Añadir poetry plugin: Export para poder sacar requirements.txt
 # https://pypi.org/project/poetry-plugin-export/
-poetry self add poetry-plugin-export
+# poetry self add poetry-plugin-export
 
 # Añadir dependencias de desarrollo
 echo "Añadiendo dependencias de desarrollo: mypy, flake8, pytest, pytest-cov y black"
