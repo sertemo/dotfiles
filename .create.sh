@@ -425,11 +425,12 @@ cat > tests/test_example.py << EOF
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import ${project_name,,}
 
 def test_example():
    assert True
 EOF
-
+echo "Archivo tests/test_example.py creado con éxito."
 
 # Añadir la configuración de MyPy a pyproject.toml
 echo "Configurando MyPy en pyproject.toml..."
