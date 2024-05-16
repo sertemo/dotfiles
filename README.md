@@ -146,3 +146,6 @@ $ ./.check.sh
     - Corregido en la configuración de **pytest-cov**, escrito el proyecto en minúsculas con:
      **${project_name,,}**
      - Agregada linea en pyproject.toml en la parte de pytest : pypthonpath = ["src"] para evitar problema encontrando los módulos
+- 16/05/2024
+    - Añadido a `create.sh` en **.gitattributes** seguimiento por defecto de archivo **.pkl** y **.pt**
+    - Corregida la creación del `tests.yml` escapando caracteres y envolviendo 'EOF' en el archivo bash.

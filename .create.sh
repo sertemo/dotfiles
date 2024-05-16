@@ -483,6 +483,8 @@ wget -O .gitignore https://www.toptal.com/developers/gitignore/api/python,window
 echo "Creando el .gitattributes"
 cat >> .gitattributes << EOF
 * text=auto eol=lf
+*.pkl filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
 EOF
 
 
@@ -497,7 +499,7 @@ git init
 # Para forzar visualización de errores si los hay
 echo "Creando workflow 'tests' de github..."
 mkdir -p .github/workflows
-cat > .github/workflows/tests.yml << EOF
+cat > .github/workflows/tests.yml << 'EOF'
 name: Tests
 
 on:
@@ -517,7 +519,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: \${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -536,7 +538,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: \${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -555,7 +557,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: \${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -574,7 +576,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: \${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
