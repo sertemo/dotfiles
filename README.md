@@ -154,3 +154,4 @@ $ ./.check.sh
     - Añadido 'import project_name' al archivo example de pytest para evitar el error de importación en cov
 - 26/05/2024
     - Quitada la barra '\' dentro de `tests.yml` ya que daba error.
+    - Añadido al final del create recordatorio para habilitar dependabot y dar permisos de escritura

@@ -659,6 +659,8 @@ git push -u origin main
 
 
 echo -e "${GREEN}Proyecto $project_name creado y configurado con éxito.${NC}"
+echo -e "${GREEN}Recuerda dar permisos de escritura en el repo en settings >> Actions General >> Workflow permissions" para que el archivo update_readme.py funcione correctamente
+echo -e "${GREEN}Recuerda habilitar dependabot en el repo en settings >> Code security and analysis >> Enable Dependabots alerts
 
 # Activar el entorno virtual
 # echo "Activando el entorno virtual..."
