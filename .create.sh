@@ -308,6 +308,8 @@ cat > README.md << EOF
 
 ### Proceso de Pull Request
 
+## SemVer
+
 ## Tests
 ![Pytest](https://img.shields.io/badge/testing-pytest-blue.svg)
 ![Black](https://img.shields.io/badge/code%20style-black-blue.svg)
@@ -458,6 +460,7 @@ addopts = "--cov=${project_name,,}"
 testpaths = [
    "tests",
 ]
+filterwarnings = "ignore::DeprecationWarning"
 pythonpath = ["src"]
 EOF
 
@@ -662,7 +665,4 @@ echo -e "${GREEN}Proyecto $project_name creado y configurado con éxito.${NC}"
 echo -e "${GREEN}Recuerda dar permisos de escritura en el repo en settings >> Actions General >> Workflow permissions" para que el archivo update_readme.py funcione correctamente
 echo -e "${GREEN}Recuerda habilitar dependabot en el repo en settings >> Code security and analysis >> Enable Dependabots alerts
 
-# Activar el entorno virtual
-# echo "Activando el entorno virtual..."
-# poetry shell
 

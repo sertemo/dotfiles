@@ -155,3 +155,5 @@ $ ./.check.sh
 - 26/05/2024
     - Quitada la barra '\' dentro de `tests.yml` ya que daba error.
     - Añadido al final del create recordatorio para habilitar dependabot y dar permisos de escritura
+- 01/06/2026
+    - Se añade a la configuración de **pytest** en el `pyproject.toml` el ignorar los warnings: filterwarnings = "ignore::DeprecationWarning"
