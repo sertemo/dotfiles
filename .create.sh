@@ -511,10 +511,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/**'
   pull_request:
 
 jobs:
-  black:
+  setup:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -530,11 +532,28 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --no-root --only dev
+    outputs:
+      python-version: ${{ matrix.python-version }}
+      os: ${{ matrix.os }}
+
+  black:
+    needs: setup
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.10', '3.11']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Run Black
         run: poetry run black --check src
 
   mypy:
-    runs-on: ubuntu-latest
+    needs: setup
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -544,16 +563,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --no-root --only dev
       - name: Run MyPy
         run: poetry run mypy src --install-types --non-interactive
 
   flake8:
-    runs-on: ubuntu-latest
+    needs: setup
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -563,16 +578,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --no-root --only dev
       - name: Run Flake8
         run: poetry run flake8 src
 
   pytest:
-    runs-on: ubuntu-latest
+    needs: setup
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -582,11 +593,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --no-root --only dev
       - name: Run Pytest
         run: poetry run pytest
 

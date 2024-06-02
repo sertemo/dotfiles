@@ -157,3 +157,5 @@ $ ./.check.sh
     - Añadido al final del create recordatorio para habilitar dependabot y dar permisos de escritura
 - 01/06/2026
     - Se añade a la configuración de **pytest** en el `pyproject.toml` el ignorar los warnings: filterwarnings = "ignore::DeprecationWarning"
+- 02/06/2024
+    - Se mejora la creación del archivo tests.yml. Concretamente se incluye un trabajo de instalacion de dependencias común llamado `setup`. Se añade la condición de que solo se ejecute el workflow si hay cambios en `src`. (on/push/paths)
