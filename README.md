@@ -86,7 +86,7 @@ Requiere de 2 argumentos:
 
 Se ejecuta:
 ```sh
-$ sh .create.sh <nombre_del_proyecto> "<descripción del proyecto>"
+$ /.create.sh <nombre_del_proyecto> "<descripción del proyecto>"
 ```
 
 Se realizarán las siguientes tareas:
@@ -111,8 +111,8 @@ Se realizarán las siguientes tareas:
     - 2 versiones python: **3.10** y **3.11**
     - Se lanzan los tests de mypy, black, flake8 y pytest al hacer **push** y **pull request**
 17. Crea el workflow **UpdateReadme** para actualizar la versión del proyecto en el archivo README cuando se detecte que ha cambiado el **pyproject.toml**  
-18. Crea el **requirements.txt** vacío 
-19. Crea el **requirements_dev.txt** con las dependencias de desarrollo
+18. Crea **settings.py**
+19. Cera **logging_config.py** con handler de consola y archivo
 20. Lanza **black** con poetry
 21. Realiza el **primer commit**
 22. Realiza el primer **push** al repo de  GitHub
@@ -159,5 +159,6 @@ $ ./.check.sh
     - Se añade a la configuración de **pytest** en el `pyproject.toml` el ignorar los warnings: filterwarnings = "ignore::DeprecationWarning"
 - 02/06/2024
     - Se mejora la creación del archivo `tests.yml`. Concretamente se incluye un trabajo de instalacion de dependencias común llamado `setup`. Se añade la condición de que solo se ejecute el workflow si hay cambios en `src`. (on/push/paths)
-- 06/06/2024
+- 08/06/2024
     - Se corrigen los últimos 3 **echos** donde faltaban comillas.
+    - se añaden los archivos `settings.py` con la ruta de los logs y el archivo `logging_config.py` con configuración de logging. La fonciguración del handler del logging es por consola y archivo

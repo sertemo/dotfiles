@@ -636,6 +636,93 @@ jobs:
           git add README.md
           git commit -m "Update README version" || echo "No changes to commit"
           git push
+EOF
+
+# Creamos la configuración del logging
+# Creamos carpeta logs
+echo "Creando carpeta logs..."
+mkdir -p logs
+# Creamos archivo logging_config.py
+echo "Creando archivo src/${project_name,,}/logging_config.py..."
+cat > src/${project_name,,}/logging_config.py << EOF
+# Copyright 2024 Sergio Tejedor Moreno
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import logging
+from logging.config import dictConfig
+
+from ${project_name,,}.settings import LOG_PATH
+
+LOGGING_CONFIG = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "detailed": {
+            "format": "[%(levelname)s|%(module)s|L%(lineno)d] %(asctime)s: %(message)s",
+            "datefmt": "%Y-%m-%dT%H:%M:%S%z",
+        },
+        "simple": {"format": "%(levelname)s: %(message)s"},
+    },
+    "handlers": {
+        "file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "INFO",
+            "formatter": "detailed",
+            "filename": LOG_PATH,
+            "maxBytes": 100_000,
+            "backupCount": 3,
+            "encoding": "utf-8",
+        },
+        "console": {  # Handler para printear por pantalla. Agregarlo a handlers debajo
+            "class": "logging.StreamHandler",
+            "level": "INFO",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout",
+        },
+    },
+    "loggers": {"root": {"level": "INFO", "handlers": ["file", "console"]}},
+}
+
+# Instanciamos el logger
+dictConfig(LOGGING_CONFIG)
+logger = logging.getLogger("${project_name,,}")
+
+EOF
+
+# Creamos el archivo settings.py
+echo "Creando archivo src/${project_name,,}/settings.py..."
+cat > src/${project_name,,}/settings.py << EOF
+# Copyright 2024 Sergio Tejedor Moreno
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from pathlib import Path
+
+# Log
+FOLDER_LOGS = Path("logs")
+LOG_FILE = "${project_name,,}.log"
+LOG_PATH = FOLDER_LOGS / LOG_FILE
 
 EOF
 
