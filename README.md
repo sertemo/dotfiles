@@ -162,3 +162,5 @@ $ ./.check.sh
 - 08/06/2024
     - Se corrigen los últimos 3 **echos** donde faltaban comillas.
     - se añaden los archivos `settings.py` con la ruta de los logs y el archivo `logging_config.py` con configuración de logging. La fonciguración del handler del logging es por consola y archivo
+- 09/06/2024
+    - Añadido cache al workflow `tests`ya que no funcionaba correctamente: el setup inicial no hacía que se mantuviera la instalación de poetry
