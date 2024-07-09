@@ -110,12 +110,11 @@ Se realizarán las siguientes tareas:
     - 2 os: **ubuntu** y **windows**
     - 2 versiones python: **3.10** y **3.11**
     - Se lanzan los tests de mypy, black, flake8 y pytest al hacer **push** y **pull request**
-17. Crea el workflow **UpdateReadme** para actualizar la versión del proyecto en el archivo README cuando se detecte que ha cambiado el **pyproject.toml**  
-18. Crea **settings.py**
-19. Cera **logging_config.py** con handler de consola y archivo
-20. Lanza **black** con poetry
-21. Realiza el **primer commit**
-22. Realiza el primer **push** al repo de  GitHub
+17. Crea **settings.py**
+18. Cera **logging_config.py** con handler de consola y archivo
+19. Lanza **black** con poetry
+20. Realiza el **primer commit**
+21. Realiza el primer **push** al repo de  GitHub
 
 
 El archivo **check.sh** realiza lo siguiente:
@@ -164,3 +163,5 @@ $ ./.check.sh
     - se añaden los archivos `settings.py` con la ruta de los logs y el archivo `logging_config.py` con configuración de logging. La fonciguración del handler del logging es por consola y archivo
 - 09/06/2024
     - Añadido cache al workflow `tests`ya que no funcionaba correctamente: el setup inicial no hacía que se mantuviera la instalación de poetry
+- 09/07/2024
+    - Se suprime todo lo concerniente al `update_readme`. Para actualizar la versión habrá que hacerlo a mano en el README.

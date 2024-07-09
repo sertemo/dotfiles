@@ -339,43 +339,6 @@ limitations under the License.
 
 EOF
 
-# Creamos archivo update_readme.py para cambiar primera linea
-# del README y poner automaticamente la versión y el nombre del proyecto
-echo "Creando archivo update_readme.py..."
-cat > update_readme.py << EOF
-"""Actualiza en el README la versión"""
-
-import toml
-
-
-def update_readme():
-    # Leer la configuración del proyecto
-    with open("pyproject.toml", "r") as file:
-        data = toml.load(file)
-        current_version = data["tool"]["poetry"]["version"]
-
-    # Leer el contenido actual de README.md y actualizar si es necesario
-    with open("README.md", "r") as file:
-        readme_contents = file.readlines()
-
-    new_readme_content = f"### v{current_version}\n"
-
-    if readme_contents[1] != new_readme_content:
-        # La versión está en la segunda fila
-        readme_contents[1] = new_readme_content
-        # Escribir el contenido actualizado de nuevo a README.md
-        with open("README.md", "w") as file:
-            file.writelines(readme_contents)
-        print("README updated")
-    else:
-        print("No update needed")
-
-
-if __name__ == "__main__":
-    update_readme()
-
-EOF
-
 # Crear archivo setup.cfg para Flake8
 echo "Creando archivo setup.cfg..."
 cat > setup.cfg << EOF
@@ -646,46 +609,6 @@ jobs:
 
 EOF
 
-# Creamos otro workflow para actualizar en el README la versión automáticamente
-# El README solo se actualiza si hay un cambio en pyproject.toml
-#! Ojo hay que dar permisos de escritura en la parte de Actions del repo
-echo "Creando workflow 'UpdateReadme de github..."
-cat > .github/workflows/UpdateReadme.yml << EOF
-name: Update README on Version Change
-
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'pyproject.toml'  # Solo cuando haya cambias aqui
-
-jobs:
-  update_version:
-    runs-on: ubuntu-latest  # Especifica en qué ambiente se ejecuta el job.
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: true  # Asegúrate de que las credenciales persistan para el push.
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --no-root --only dev
-      - name: Update version in README
-        run: poetry run python update_readme.py
-      - name: Commit changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add README.md
-          git commit -m "Update README version" || echo "No changes to commit"
-          git push
-EOF
-
 # Creamos la configuración del logging
 # Creamos carpeta logs
 echo "Creando carpeta logs..."
@@ -803,7 +726,6 @@ git push -u origin main
 
 
 echo -e "${GREEN}Proyecto $project_name creado y configurado con éxito.${NC}"
-echo -e "${GREEN}Recuerda dar permisos de escritura en el repo en settings >> Actions General >> Workflow permissions para que el archivo update_readme.py funcione correctamente"
 echo -e "${GREEN}Recuerda habilitar dependabot en el repo en settings >> Code security and analysis >> Enable Dependabots alerts"
 
 
