@@ -16,3 +16,5 @@
 	postBuffer = 260286400
 [core]
 	autocrlf = input
+[push]
+	autoSetupRemote = true

@@ -165,3 +165,6 @@ $ ./.check.sh
     - Añadido cache al workflow `tests`ya que no funcionaba correctamente: el setup inicial no hacía que se mantuviera la instalación de poetry
 - 09/07/2024
     - Se suprime todo lo concerniente al `update_readme`. Para actualizar la versión habrá que hacerlo a mano en el README.
+- 17/07/2024
+    - Se añade 'push.autoSetupRemote true' al .gitconfig para automáticamente upstream de origin para nuevas ramas
+
