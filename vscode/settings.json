@@ -8,8 +8,7 @@
     "workbench.sideBar.location": "right",
     "terminal.integrated.defaultProfile.windows": "Git Bash",
     "mypy.targets": [
-        ".",
-        "00_FastAPI_data_science"
+        "."
     ],
     "editor.guides.bracketPairs": "active",
     "notebook.lineNumbers": "on",

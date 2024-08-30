@@ -1,7 +1,11 @@
 aaron-bond.better-comments
+adpyke.codesnap
 alexcvzz.vscode-sqlite
 cardinal90.multi-cursor-case-preserve
 christian-kohler.path-intellisense
+codeium.codeium
+cweijan.dbclient-jdbc
+cweijan.vscode-database-client2
 dart-code.dart-code
 dart-code.flutter
 dotjoshjohnson.xml
@@ -12,7 +16,6 @@ esbenp.prettier-vscode
 formulahendry.auto-rename-tag
 github.vscode-github-actions
 jebbs.markdown-extended
-matangover.mypy
 mechatroner.rainbow-csv
 mongodb.mongodb-vscode
 ms-azuretools.vscode-docker
@@ -27,6 +30,9 @@ ms-toolsai.jupyter-renderers
 ms-toolsai.vscode-jupyter-cell-tags
 ms-toolsai.vscode-jupyter-slideshow
 ms-vscode-remote.remote-wsl
+ms-vscode.cmake-tools
+ms-vscode.cpptools
+ms-vscode.cpptools-extension-pack
 ms-vscode.cpptools-themes
 ms-vscode.makefile-tools
 ms-vscode.powershell
@@ -38,5 +44,6 @@ ritwickdey.liveserver
 tamasfe.even-better-toml
 teabyii.ayu
 tomoki1207.pdf
+twxs.cmake
 yzane.markdown-pdf
 zhuangtongfa.material-theme
