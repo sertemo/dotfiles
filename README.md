@@ -167,4 +167,6 @@ $ ./.check.sh
     - Se suprime todo lo concerniente al `update_readme`. Para actualizar la versión habrá que hacerlo a mano en el README.
 - 17/07/2024
     - Se añade 'push.autoSetupRemote true' al .gitconfig para automáticamente upstream de origin para nuevas ramas
+- 12/09/2024
+    - Se añaden los alias a mi bash_profile para conectarme con los nodos del cluster
 
